@@ -33,11 +33,10 @@ export default function Objective() {
 
     return "progress-primary";
   }, [])
+
   return (
-    <div>
-      <div
-        className="flex items-center justify-center gap-4"
-      >
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex items-center justify-center gap-4" >
         <button
           className="btn btn-outline btn-circle"
           onClick={decrement}
