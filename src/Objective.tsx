@@ -1,7 +1,9 @@
+import "material-symbols";
 import { useCallback, useState } from "react";
 
 export default function Objective() {
 
+  const [editting, setEditting] = useState(false);
   const [count, setCount] = useState(0)
   const [goal, setGoal] = useState(10)
 
@@ -46,11 +48,47 @@ export default function Objective() {
           </span>
         </button>
 
-        <div className="grid grid-cols-[1fr,_1em,_1fr]">
-          <span className="text-right">{count}</span>
-          <span className="text-center">/</span>
-          <span className="text-right">{goal}</span>
-        </div>
+        {!editting && (
+          <button
+            type="button"
+            className={[
+              "btn btn-ghost btn-xs text-base",
+              ...[goal > 0 ? ["grid grid-cols-[1fr,_1em,_1fr] gap-0"] : []]
+            ].join(" ")}
+            onClick={() => { setEditting((prev) => !prev); }}
+          >
+            <span className="text-right">{count}</span>
+            {goal > 0 && (
+              <>
+                <span className="text-center">/</span>
+                <span className="text-right">{goal}</span>
+              </>
+            )}
+          </button>
+        )}
+
+        {editting && (
+          <div>
+            <div className="flex justify-center items-center gap-1">
+              <span className="text-right">{count}</span>
+              <span className="text-center">/</span>
+              <input
+                type="number"
+                value={goal}
+                className="input input-bordered input-sm w-16"
+                min={0}
+                onChange={(e) => setGoal(Number(e.target.value))}
+              />
+              <button
+                onClick={() => { setEditting((prev) => !prev); }}
+                className="btn btn-xs edit"
+              >
+                Save
+              </button>
+            </div>
+
+          </div>
+        )}
 
         <button
           className="btn btn-outline btn-circle"
@@ -62,11 +100,13 @@ export default function Objective() {
         </button>
       </div>
 
-      <progress
-        className={`progress ${getProgressColor(count, goal)} w-56`}
-        value={count}
-        max={goal}
-      />
+      {goal > 0 && (
+        <progress
+          className={`progress ${getProgressColor(count, goal)} w-56`}
+          value={count}
+          max={goal}
+        />
+      )}
     </div>
   )
 }

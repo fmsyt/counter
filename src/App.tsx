@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 import Objective from "./Objective";
-import Sequence from "./Sequence";
 
 function App() {
 
@@ -12,18 +11,9 @@ function App() {
   return (
     <div className="p-4 h-svh">
       <div className="grid gap-4 place-content-center h-full">
-        <Sequence />
 
         <Objective />
         <div className="text-center [&:hover&_.edit]:inline-block">
-          {Boolean(editting) && (
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          )}
-
           <div className="flex justify-center items-center">
             <p className={["message", ...(!message ? ["text-gray-500"] : [])].join(" ")}>
               {message || "どのタイミングでカウントしますか？"}
@@ -36,6 +26,14 @@ function App() {
             </button>
           </div>
 
+          {Boolean(editting) && (
+            <input
+              type="text"
+              className="input input-bordered input-sm"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          )}
         </div>
       </div>
     </div>
