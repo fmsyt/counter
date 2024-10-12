@@ -15,8 +15,6 @@ export default function Objective() {
     setCount((prev) => prev > 0 ? prev - 1 : prev)
   }, []);
 
-  const reset = useCallback(() => { setCount(0) }, []);
-
   const getProgressColor = useCallback((count: number, goal: number) => {
     if (count === goal) {
       return "progress-success";
