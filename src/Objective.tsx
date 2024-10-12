@@ -12,17 +12,10 @@ export default function Objective() {
   }, []);
 
   const decrement = useCallback(() => {
-    setCount((prev) => {
-      if (prev > 0) {
-        return prev - 1;
-      }
-      return prev;
-    });
+    setCount((prev) => prev > 0 ? prev - 1 : prev)
   }, []);
 
-  const reset = useCallback(() => {
-    setCount(0);
-  }, []);
+  const reset = useCallback(() => { setCount(0) }, []);
 
   const getProgressColor = useCallback((count: number, goal: number) => {
     if (count === goal) {
@@ -72,21 +65,24 @@ export default function Objective() {
             <div className="flex justify-center items-center gap-1">
               <span className="text-right">{count}</span>
               <span className="text-center">/</span>
-              <input
-                type="number"
-                value={goal}
-                className="input input-bordered input-sm w-16"
-                min={0}
-                onChange={(e) => setGoal(Number(e.target.value))}
-              />
-              <button
-                onClick={() => { setEditting((prev) => !prev); }}
-                className="btn btn-xs edit"
-              >
-                Save
-              </button>
+              <div className="join">
+                <input
+                  type="number"
+                  value={goal}
+                  className="input input-bordered input-sm w-16 join-item"
+                  min={0}
+                  onChange={(e) => setGoal(Number(e.target.value))}
+                />
+                <button
+                  onClick={() => { setEditting((prev) => !prev); }}
+                  className="btn btn-sm btn-primary edit join-item"
+                >
+                  <span className="material-symbols-outlined">
+                    check
+                  </span>
+                </button>
+              </div>
             </div>
-
           </div>
         )}
 
